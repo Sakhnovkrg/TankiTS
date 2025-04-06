@@ -28,8 +28,12 @@ enemies.forEach(e => {
   e.onDeath = (x, y) => explosions.push(new Explosion(x, y));
 });
 
-window.addEventListener("keydown", (e) => keys.add(e.key.toLowerCase()));
-window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
+document.addEventListener("keydown", (e) => {
+  keys.add(e.key);
+});
+document.addEventListener("keyup", (e) => {
+  keys.delete(e.key);
+});
 window.addEventListener("blur", () => keys.clear());
 
 function gameLoop() {

@@ -1,6 +1,14 @@
 import { Tank, Direction } from "./tank";
 import { TILE_SIZE } from "./map";
 
+const KeyBindings = {
+    up: new Set(["w", "W", "ц", "Ц", "ArrowUp"]),
+    down: new Set(["s", "S", "ы", "Ы", "ArrowDown"]),
+    left: new Set(["a", "A", "ф", "Ф", "ArrowLeft"]),
+    right: new Set(["d", "D", "в", "В", "ArrowRight"]),
+    shoot: new Set([" ", "Space"]),
+};
+
 export class Player extends Tank {
     hp = 3;
     speed = 4;
@@ -12,21 +20,21 @@ export class Player extends Tank {
 
     update(keys: Set<string>, others: Tank[]) {
         if (!this.alive) return;
-
-        if (keys.has(" ")) {
-            keys.delete(" ");
+    
+        if ([...KeyBindings.shoot].some(k => keys.has(k))) {
+            KeyBindings.shoot.forEach(k => keys.delete(k));
             this.shoot();
         }
-
+    
         if (!this.moving) {
-            if (keys.has("w")) this.tryMove("up", others);
-            else if (keys.has("s")) this.tryMove("down", others);
-            else if (keys.has("a")) this.tryMove("left", others);
-            else if (keys.has("d")) this.tryMove("right", others);
+            if ([...KeyBindings.up].some(k => keys.has(k))) this.tryMove("up", others);
+            else if ([...KeyBindings.down].some(k => keys.has(k))) this.tryMove("down", others);
+            else if ([...KeyBindings.left].some(k => keys.has(k))) this.tryMove("left", others);
+            else if ([...KeyBindings.right].some(k => keys.has(k))) this.tryMove("right", others);
         } else {
             this.continueMove();
         }
-
+    
         this.updateBullets();
     }
 

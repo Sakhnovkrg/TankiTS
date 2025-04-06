@@ -13,7 +13,7 @@ export class Bullet {
   x: number;
   y: number;
   readonly direction: Direction;
-  readonly speed = 4;
+  readonly speed = 5;
   readonly damage: number;
   active = true;
   onExplode?: (x: number, y: number) => void;

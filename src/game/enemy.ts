@@ -5,12 +5,12 @@ import { Player } from "./player";
 
 export class Enemy extends Tank {
   speed = 1;
+  hp = 3
   onDeath?: (x: number, y: number) => void;
 
   constructor(x: number, y: number) {
     super(x, y);
     this.direction = this.randomDirection();
-    this.hp = 3; // 👈 Устанавливаем здоровье
   }
 
   update(player: Player, others: Tank[]) {
